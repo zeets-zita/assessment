@@ -4,7 +4,6 @@ import {IChartProperties, ICombinedChart} from "../models/combined-chart";
 import {IBarChart} from "../models/bar-chart";
 import {ChartService} from "../services/chart.service";
 import * as d3 from 'd3';
-import {lastValueFrom} from "rxjs";
 import {OverlayPanel} from "primeng/overlaypanel";
 import {DatePipe} from "@angular/common";
 
@@ -63,12 +62,17 @@ export class DashboardComponent implements OnInit {
     private chartService: ChartService,
     private datePipe: DatePipe,
   ) {
-    this.setDimensions();
-    window.addEventListener('resize', () => this.setDimensions());
+
+    window.addEventListener('resize', () => {
+      this.setDimensions();
+
+    });
 
   }
 
   public async ngOnInit(): Promise<void> {
+    this.setDimensions();
+
     this.setPropertiesOnLoad();
     this.setActiveMenuItem(1);
 
@@ -105,15 +109,11 @@ export class DashboardComponent implements OnInit {
   }
 
   public previousStep(): void {
-    if (this.activeIndex > 0) {
-      this.activeIndex--;
-    }
+    this.activeIndex = this.activeIndex > 0 ? this.activeIndex - 1 : 2;
   }
 
   public nextStep(): void {
-    if (this.activeIndex < 2) {
-      this.activeIndex++;
-    }
+    this.activeIndex = this.activeIndex < 2 ? this.activeIndex + 1 : 0;
   }
 
   public setActiveMenuItem(index: number): void {
@@ -121,6 +121,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public toggleSidebar() {
+    console.log('test')
     this.isSidebarHidden = !this.isSidebarHidden;
   }
 
@@ -129,7 +130,7 @@ export class DashboardComponent implements OnInit {
   }
 
   public toggleNotification(event: Event): void {
-    if (this.newDataAvailable) {
+    if (this.newDataAvailable && this.overlayPanel) {
       this.overlayPanel.toggle(event);
     }
   }
@@ -144,29 +145,29 @@ export class DashboardComponent implements OnInit {
   }
 
   private setDimensions(): void {
+
     const screenWidth = window.innerWidth;
     const screenHeight = window.innerHeight;
 
-    this.width = Math.min(screenWidth * 0.8, 650) - this.margin * 2;
+    this.width = Math.min(screenWidth * 0.8, 900) - this.margin * 2;
     this.height = Math.min(screenHeight * 0.5, 400) - this.margin * 2;
 
-    this.pieWidth = Math.min(screenWidth * 0.6, 445);
+    this.pieWidth = Math.min(screenWidth * 0.6, 755);
     this.pieHeight = Math.min(screenHeight * 0.6, 300);
 
     this.radius = Math.min(this.pieWidth, this.pieHeight) / 2 - this.margin;
 
-    if (this.width < 1440) {
-
-      this.pieWidth = Math.min(screenWidth * 0.6, 420)
+    if (this.width < 1450) {
+      this.pieWidth = Math.min(screenWidth * 0.6, 400)
     }
-    if (this.width < 425) {
-      this.isSidebarHidden = true;
+
+    this.isSidebarHidden = screenWidth < 1025;
+
+    if (screenWidth < 430) {
       this.pieChartTransform = 100;
-      this.pieWidth = 360;
-      this.width = 260;
+      this.pieWidth = 370;
     }
   }
-
 
   private async getAllChartData(): Promise<void> {
     this.barChart = await this.chartService.getBarChartData();
@@ -328,7 +329,7 @@ export class DashboardComponent implements OnInit {
       .attr("fill", (d: any, i: number) => this.colors(i))
       .style("cursor", "pointer")
       .on("mouseover", (event: MouseEvent, d: { data: { label: any; value: any } }) => {
-        d3.select(event.currentTarget as HTMLElement)  // Explicitly cast to HTMLElement
+        d3.select(event.currentTarget as HTMLElement)
           .transition()
           .duration(200)
           .attr("d", d => arcHover(d as d3.DefaultArcObject)!);
@@ -343,7 +344,7 @@ export class DashboardComponent implements OnInit {
           .style("top", `${event.pageY - 20}px`);
       })
       .on("mouseout", (event: MouseEvent, d: any) => {
-        d3.select(event.currentTarget as HTMLElement)  // Explicitly cast to HTMLElement
+        d3.select(event.currentTarget as HTMLElement)
           .transition()
           .duration(200)
           .attr("d", d => arc(d as d3.DefaultArcObject)!);
@@ -412,7 +413,16 @@ export class DashboardComponent implements OnInit {
       .attr("y", (d: IChartProperties) => y(d.rainfall))
       .attr("width", x.bandwidth())
       .attr("height", (d: IChartProperties) => this.height - y(d.rainfall))
-      .attr("fill", "#A2666F");
+      .attr("fill", "#A2666F")
+      .on("mouseover", (event: any, d: IChartProperties) => {
+        tooltip.transition().duration(200).style("opacity", .9);
+        tooltip.html(`Rainfall: ${d.rainfall} mm`)
+          .style("left", `${event.pageX + 5}px`)
+          .style("top", `${event.pageY - 28}px`);
+      })
+      .on("mouseout", () => {
+        tooltip.transition().duration(500).style("opacity", 0);
+      });
 
     const line = d3.line<IChartProperties>()
       .x((d) => (x(d.month)! + x.bandwidth() / 2))
@@ -477,6 +487,5 @@ export class DashboardComponent implements OnInit {
       .style("font-size", "14px")
       .text("Rainfall");
   }
-
 
 }

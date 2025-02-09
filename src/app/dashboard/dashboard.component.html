@@ -1,5 +1,6 @@
 <div class="layout-container">
-  <div class="side-nav" [ngClass]="{'hidden': isSidebarHidden}" role="navigation" aria-label="Main Navigation">
+  <div class="side-nav" [ngClass]="{'show': !isSidebarHidden}"
+       role="navigation" aria-label="Main Navigation">
     <ul>
       <li *ngFor="let item of menuItems; let i = index"
           class="menu-item"
@@ -68,80 +69,80 @@
       </div>
     </div>
 
-    <div class="grid col-12 ml-0">
-      <div class="col flex flex-wrap m-2 col-divs">
-        <span class="shadow-3 box w-full" role="region" aria-labelledby="summary-card">
-          <div class="summary-container">
-            <div class="flex flex-column m-2" *ngIf="activeIndex === 0">
-              <h4>Machine Vision Recognition Results</h4>
-              <ul>
-                <li>
-                  <strong>Success:</strong> 120 occurrences
-                </li>
-                <li>
-                  <strong>Failure:</strong> 30 occurrences
-                </li>
-                <li>
-                  <strong>Unknown:</strong> 15 occurrences
-                </li>
-              </ul>
-            </div>
+    <div class="grid col-12 ml-0" >
 
-            <div class="flex flex-column m-2" *ngIf="activeIndex === 1">
-              <h4>Temperature and Rainfall Trends</h4>
-              <p>
-                <strong>X-axis Label:</strong> Month
-              </p>
-              <p>
-                <strong>Y-axis Labels:</strong>
-              </p>
-              <ul>
-                <li>
-                  <strong>Left:</strong> Temperature (°C)
-                </li>
-                <li>
-                  <strong>Right:</strong> Rainfall (mm)
-                </li>
-              </ul>
-              <p><strong>Data Overview:</strong></p>
-              <ul>
-                <li>Temperature ranges from 5°C (January) to 30°C (July), with the highest in July.</li>
-                <br>
-                <li>Rainfall fluctuates, with the highest recorded in April (120 mm) and the lowest in July (50 mm).</li>
-                <br>
-                <li>Data spans from January to December.</li>
-              </ul>
-            </div>
+        <div class="col flex flex-wrap m-2 col-divs shadow-3 box summary">
+          <span class="w-full" role="region" aria-labelledby="summary-card" >
+            <div class="summary-container" [ngSwitch]="activeIndex">
+              <span class=" m-2 " *ngSwitchCase="0">
+                <h4>Machine Vision Recognition Results</h4>
+                <ul>
+                  <li>
+                    <strong>Success:</strong> 120 occurrences
+                  </li>
+                  <li>
+                    <strong>Failure:</strong> 30 occurrences
+                  </li>
+                  <li>
+                    <strong>Unknown:</strong> 15 occurrences
+                  </li>
+                </ul>
+              </span>
 
-            <div class="flex flex-column m-2" *ngIf="activeIndex === 2">
-              <h4>Daily Water Consumption</h4>
-              <ul>
-                <li>
-                  <strong>Total Days Covered:</strong> 31 days in January and 29 days in February.
-                </li>
-                <li>
-                  <strong>Average Daily Consumption:</strong> Approx. 3.0 liters/day.
-                </li>
-                <li>
-                  <strong>Data Coverage:</strong> January and February 2024.
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div class="step-navigation">
-            <button (click)="previousStep()" class="arrow-button left-arrow" aria-label="Previous Step">
-              <i class="pi pi-arrow-left"></i>
-            </button>
-            <button (click)="nextStep()" class="arrow-button right-arrow" aria-label="Next Step">
-              <i class="pi pi-arrow-right"></i>
-            </button>
-          </div>
-        </span>
-      </div>
+              <div class="m-2 " *ngSwitchCase="1">
+                <h4>Temperature and Rainfall Trends</h4>
+                <p>
+                  <strong>X-axis Label:</strong> Month
+                </p>
+                <p>
+                  <strong>Y-axis Labels:</strong>
+                </p>
+                <ul>
+                  <li>
+                    <strong>Left:</strong> Temperature (°C)
+                  </li>
+                  <li>
+                    <strong>Right:</strong> Rainfall (mm)
+                  </li>
+                </ul>
+                <p><strong>Data Overview:</strong></p>
+                <ul>
+                  <li>Temperature ranges from 5°C (January) to 30°C (July), with the highest in July.</li>
+                  <br>
+                  <li>Rainfall fluctuates, with the highest recorded in April (120 mm) and the lowest in July (50 mm).</li>
+                  <br>
+                  <li>Data spans from January to December.</li>
+                </ul>
+              </div>
 
-      <div class="col flex flex-wrap m-2 col-divs">
-        <span class="shadow-3 box">
-          <div class="flex flex-row justify-content-between">
+              <div class="m-2 " *ngSwitchCase="2">
+                <h4>Daily Water Consumption</h4>
+                <ul>
+                  <li>
+                    <strong>Total Days Covered:</strong> 31 days in January and 29 days in February.
+                  </li>
+                  <li>
+                    <strong>Average Daily Consumption:</strong> Approx. 3.0 liters/day.
+                  </li>
+                  <li>
+                    <strong>Data Coverage:</strong> January and February 2024.
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="step-navigation">
+              <button (click)="previousStep()" class="arrow-button left-arrow" aria-label="Previous Step">
+                <i class="pi pi-arrow-left"></i>
+              </button>
+              <button (click)="nextStep()" class="arrow-button right-arrow" aria-label="Next Step">
+                <i class="pi pi-arrow-right"></i>
+              </button>
+            </div>
+          </span>
+        </div>
+
+        <div class="col flex flex-wrap m-2 col-divs shadow-3 box">
+          <div class="flex flex-row justify-content-between w-full">
             <h4>Water Consumption</h4>
             <p-dropdown [options]="months"
                         [(ngModel)]="selectedMonth"
@@ -150,24 +151,23 @@
                         placeholder="Select a Month"
                         aria-label="Select month for water consumption"/>
           </div>
-          <figure id="bar" aria-live="polite"></figure>
-        </span>
-      </div>
+          <span class="flex justify-content-center w-full" aria-labelledby="bar-chart">
+            <figure id="bar" aria-live="polite"></figure>
+          </span>
+        </div>
 
-      <div class="col flex flex-wrap m-2 col-divs">
-        <span class="shadow-3 box">
+        <div class="col flex flex-wrap m-2 col-divs shadow-3 box">
           <h4>Object Recognition Performance Metrics</h4>
-          <figure id="pie" aria-live="polite"></figure>
-        </span>
-      </div>
-      <div class="col flex flex-wrap m-2 col-divs">
-        <span class="shadow-3 box">
-          <div class="flex">
-            <h4>Monthly Weather Patterns: Temperature & Rainfall</h4>
-          </div>
-          <figure id="combined" aria-live="polite"></figure>
-        </span>
-      </div>
+          <span class="flex justify-content-center w-full" aria-labelledby="pie-chart">
+            <figure id="pie" aria-live="polite"></figure>
+          </span>
+        </div>
+        <div class="col flex flex-wrap m-2 col-divs shadow-3 box">
+          <h4>Monthly Weather Patterns: Temperature & Rainfall</h4>
+          <span class="flex justify-content-center w-full " aria-labelledby="Combined Bar and Line Chart">
+            <figure id="combined" aria-live="polite"></figure>
+          </span>
+        </div>
     </div>
   </div>
 </div>

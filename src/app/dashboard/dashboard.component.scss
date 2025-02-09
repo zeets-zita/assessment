@@ -51,13 +51,16 @@
     box-shadow: 0 0 0 20px rgba(0, 0, 0, 0);
   }
 }
+.summary {
+  flex: 0 0 380px;
+}
 .summary-container {
   height: 80%;
 }
 .step-navigation {
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  //margin-top: 20px;
   margin-bottom: 30px;
 }
 ul {
@@ -159,7 +162,12 @@ ul {
   position: fixed;
   z-index: 10;
   transition: transform 0.3s ease;
+  transform: translateX(-100%);
 }
+.side-nav.show {
+  transform: translateX(0);
+}
+
 .side-nav .menu-item {
   padding: 10px;
   cursor: pointer;
@@ -182,6 +190,7 @@ ul {
 .side-nav .menu-item i {
   margin-right: 10px;
 }
+
 .new {
   background: rgb(149 129 141 / 27%);
 }
@@ -199,7 +208,7 @@ ul {
   order: 3;
 }
 
-@media screen and (max-width: 1025px) {
+@media screen and (max-width: 1635px) {
   .col-divs:nth-child(2) {
     order: 2;
   }
@@ -207,30 +216,15 @@ ul {
     order: 1;
   }
 }
-@media screen and (min-width: 769px) {
-  .side-nav {
-    transform: translateX(0);
-  }
 
-  .main-content {
-    margin-left: 250px;
-  }
-
-  .hamburger-btn {
-    display: none;
-  }
-
-}
-
-@media screen and (max-width: 768px) {
-  .side-nav.hidden {
-    transform: translateX(-100%);
-  }
-
+@media screen and (max-width: 1024px) {
   .main-content {
     margin-left: 0;
   }
+  .summary{
+    flex: 0 0 97%;
 
+  }
   .hamburger-btn {
     display: block;
     background: none;
@@ -240,15 +234,40 @@ ul {
     cursor: pointer;
     z-index: 15;
   }
-  .box {
-    height: max-content;
-  }
+
   .col-divs:nth-child(1) .box {
     height: 100%
   }
 }
-@media screen and (max-width: 425px) {
-  .col-divs:nth-child(1) .box {
-    height: max-content;
+
+
+@media (max-width: 1024px) {
+  .side-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    transform: translateX(-100%);
+  }
+  .hamburger-btn {
+    display: block;
+  }
+}
+
+@media (min-width: 1025px) {
+  .hamburger-btn {
+    display: none;
+  }
+  .side-nav {
+    transform: translateX(0);
+  }
+}
+@media screen and (min-width: 769px) {
+  .main-content {
+    margin-left: 250px;
+  }
+  .hamburger-btn {
+    display: none;
   }
 }
