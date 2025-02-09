@@ -54,13 +54,10 @@
 .summary {
   flex: 0 0 380px;
 }
-.summary-container {
-  height: 80%;
-}
+
 .step-navigation {
   display: flex;
   justify-content: space-between;
-  //margin-top: 20px;
   margin-bottom: 30px;
 }
 ul {
@@ -90,6 +87,82 @@ ul {
 
 .right-arrow {
   margin-left: 10px;
+}
+.fade-in {
+  opacity: 1;
+  animation-name: fadeInOpacity;
+  animation-iteration-count: 1;
+  animation-timing-function: ease-in;
+  animation-duration: 0.3s;
+}
+
+@keyframes fadeInOpacity {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+layout-container {
+  display: flex;
+  height: 100vh;
+}
+
+.side-nav {
+  width: 250px;
+  background-color: #658256;
+  color: white;
+  height: 100%;
+  padding: 20px;
+  position: fixed;
+  z-index: 10;
+  transition: transform 0.3s ease;
+  transform: translateX(-100%);
+}
+.side-nav.show {
+  transform: translateX(0);
+}
+
+.side-nav .menu-item {
+  padding: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s;
+  border-radius: 10px;
+}
+
+.side-nav .menu-item:hover {
+  background-color: #8aaa79;
+  border-radius: 10px;
+}
+
+.side-nav .menu-item.active {
+  background-color: #37492e;
+  color: #fff;
+  border-radius: 10px;
+}
+.side-nav .menu-item i {
+  margin-right: 10px;
+}
+
+.new {
+  background: rgb(149 129 141 / 27%);
+}
+
+.col-divs:nth-child(1) {
+  order: 0;
+}
+.col-divs:nth-child(2) {
+  order: 1;
+}
+.col-divs:nth-child(3) {
+  order: 2;
+}
+.col-divs:nth-child(4) {
+  order: 3;
 }
 
 ::ng-deep {
@@ -148,65 +221,7 @@ ul {
     background: #95818d5e;
   }
 }
-.layout-container {
-  display: flex;
-  height: 100vh;
-}
 
-.side-nav {
-  width: 250px;
-  background-color: #658256;
-  color: white;
-  height: 100%;
-  padding: 20px;
-  position: fixed;
-  z-index: 10;
-  transition: transform 0.3s ease;
-  transform: translateX(-100%);
-}
-.side-nav.show {
-  transform: translateX(0);
-}
-
-.side-nav .menu-item {
-  padding: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  transition: background-color 0.3s;
-  border-radius: 10px;
-}
-
-.side-nav .menu-item:hover {
-  background-color: #8aaa79;
-  border-radius: 10px;
-}
-
-.side-nav .menu-item.active {
-  background-color: #37492e;
-  color: #fff;
-  border-radius: 10px;
-}
-.side-nav .menu-item i {
-  margin-right: 10px;
-}
-
-.new {
-  background: rgb(149 129 141 / 27%);
-}
-
-.col-divs:nth-child(1) {
-  order: 0;
-}
-.col-divs:nth-child(2) {
-   order: 1;
-}
-.col-divs:nth-child(3) {
-  order: 2;
-}
-.col-divs:nth-child(4) {
-  order: 3;
-}
 
 @media screen and (max-width: 1635px) {
   .col-divs:nth-child(2) {
