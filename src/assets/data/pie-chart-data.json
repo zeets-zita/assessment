@@ -1,0 +1,8 @@
+{
+  "title": "Machine Vision Recognition Results",
+  "categories": [
+    { "label": "Success", "value": 120 },
+    { "label": "Failure", "value": 30 },
+    { "label": "Unknown", "value": 15 }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "title": "Temperature and Rainfall Trends",
+  "xAxisLabel": "Month",
+  "yAxisLabelLeft": "Temperature (°C)",
+  "yAxisLabelRight": "Rainfall (mm)",
+  "data": [
+    { "month": "Jan", "temperature": 24, "rainfall": 80 },
+    { "month": "Feb", "temperature": 7, "rainfall": 60 },
+    { "month": "Mar", "temperature": 12, "rainfall": 90 },
+    { "month": "Apr", "temperature": 18, "rainfall": 120 },
+    { "month": "May", "temperature": 22, "rainfall": 110 },
+    { "month": "Jun", "temperature": 26, "rainfall": 70 },
+    { "month": "Jul", "temperature": 30, "rainfall": 50 },
+    { "month": "Aug", "temperature": 29, "rainfall": 55 },
+    { "month": "Sep", "temperature": 24, "rainfall": 90 },
+    { "month": "Oct", "temperature": 17, "rainfall": 100 },
+    { "month": "Nov", "temperature": 10, "rainfall": 110 },
+    { "month": "Dec", "temperature": 6, "rainfall": 95 }
+  ]
+}

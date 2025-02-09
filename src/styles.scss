@@ -1,0 +1,68 @@
+:host {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
+  color: #333;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 8px 0;
+}
+
+p {
+  margin: 0;
+}
+
+figure {
+  margin: 0;
+}
+
+body {
+  display: block;
+  margin: 0;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode, body.dark-mode .p-dropdown, body.dark-mode .p-dropdown-panel {
+  background-color: #232a2d;
+  color: #ffffff;
+}
+body:not(.dark-mode), body:not(.dark-mode) .p-dropdown, body:not(.dark-mode) .p-dropdown-panel  {
+  background-color: #ffffff;
+  color: #000000;
+}
+body.dark-mode  .p-dropdown .p-dropdown-label.p-placeholder, body.dark-mode .p-inputtext, body.dark-mode .p-dropdown-panel .p-dropdown-items .p-dropdown-item {
+  color: #ffffff;
+}
+
+body:not(.dark-mode) .y-axis-label, body:not(.dark-mode) .x-axis-label, body:not(.dark-mode) .pie-chart-label {
+  fill: #000000 ;
+}
+body.dark-mode .y-axis-label, body.dark-mode .x-axis-label, body.dark-mode .pie-chart-label {
+  fill: #ffffff;
+}
+
+body.dark-mode .toolbar {
+  border-bottom: 1px solid white;
+}
+
+body.dark-mode .shadow-3 {
+  box-shadow: 0px 1px 8px rgba(255, 255, 255, 0.08), 0px 3px 4px rgba(255, 255, 255, 0.1), 0px 1px 4px -1px rgba(255, 255, 255, 0.1) !important;
+}
+body.dark-mode .side-nav {
+  background-color: #37492e;
+}
+body.dark-mode .side-nav .menu-item.active {
+  background-color: #658256 !important;
+}
+
+body.dark-mode .p-dropdown-panel .p-dropdown-items .p-dropdown-item:not(.p-highlight):not(.p-disabled):hover {
+  background: #95818d5e;
+}
